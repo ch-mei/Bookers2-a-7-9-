@@ -4,7 +4,6 @@ class BooksController < ApplicationController
     @book = Book.find(params[:id])
     @book_comment = BookComment.new
     @book_new = Book.new
-    @user = User.find_by(id: @book.user_id)
   end
 
   def index
@@ -24,16 +23,11 @@ class BooksController < ApplicationController
   end
 
   def edit
-    @book = Book.find(params[:id])
-    if @book.user_id != current_user.id
-      redirect_to books_path
-    end
   end
 
 
 
   def update
-    @book = Book.find(params[:id])
     if @book.update(book_params)
       redirect_to book_path(@book), notice: "You have updated book successfully."
     else
@@ -42,7 +36,6 @@ class BooksController < ApplicationController
   end
 
   def destroy
-    @book = Book.find(params[:id])
     @book.destroy
     redirect_to books_path
   end
@@ -53,4 +46,10 @@ class BooksController < ApplicationController
     params.require(:book).permit(:title, :body)
   end
 
+  def ensure_current_user
+    @book = Book.find(params[:id])
+    unless @book.user == current_user
+      redirect_to books_path
+    end
+  end
 end
