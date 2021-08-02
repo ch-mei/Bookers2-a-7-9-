@@ -1,5 +1,4 @@
 class RelationshipsController < ApplicationController
-  before_action :set_user
 
   def create
     current_user.follow(params[:user_id])
@@ -11,14 +10,14 @@ class RelationshipsController < ApplicationController
     redirect_to request.referer
   end
 
-  def following_user
+  def followed_users
     user = User.find(params[:user_id])
-    @users = user.following_user
+    @users = user.followed_users
   end
 
-  def follower_user
+  def followers
     user = User.find(params[:user_id])
-    @users = user.follower_user
+    @users = user.followers
   end
 
 end
