@@ -26,6 +26,20 @@ class User < ApplicationRecord
     followed_users.include?(user)
   end
 
+  def self.looks(search, word)
+    if search == "match"
+      @user = User.where("name LIKE?", "#{word}")
+    elsif search == "forward"
+      @user = User.where("name LIKE?","#{word}%")
+    elsif search == "backward"
+      @user = User.where("name LIKE?","%#{word}")
+    elsif search == "partial"
+      @user = User.where("name LIKE?","%#{word}%")
+    else
+      @user = User.all
+    end
+  end
+
 
   attachment :profile_image, destroy: false
 
