@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_06_074057) do
+ActiveRecord::Schema.define(version: 2021_08_09_015839) do
 
   create_table "book_comments", force: :cascade do |t|
     t.text "comment"
@@ -47,7 +47,7 @@ ActiveRecord::Schema.define(version: 2021_08_06_074057) do
   create_table "messages", force: :cascade do |t|
     t.integer "user_id"
     t.integer "room_id"
-    t.text "content"
+    t.text "content", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["room_id"], name: "index_messages_on_room_id"
@@ -62,7 +62,6 @@ ActiveRecord::Schema.define(version: 2021_08_06_074057) do
   end
 
   create_table "rooms", force: :cascade do |t|
-    t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
