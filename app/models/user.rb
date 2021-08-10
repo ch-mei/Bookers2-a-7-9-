@@ -22,12 +22,11 @@ class User < ApplicationRecord
   #自分をフォローしている人
   has_many :followers, through: :reverse_relationships, source: :follower
 
-  has_many :messages, dependent: :destroy
+  has_many :chats, dependent: :destroy
   has_many :entries, dependent: :destroy
-  has_many :rooms, through: :entries
 
   def follow(user_id)
-    relationships.creat(followed_id: user_id)
+    relationships.create(followed_id: user_id)
   end
 
   def unfollow(user_id)

@@ -5,6 +5,8 @@ Rails.application.routes.draw do
 
   root 'homes#top'
   get 'home/about', to: 'homes#about'
+  
+  get 'chat/:id' => 'chats#show', as: 'chat'
 
   resources :users, only: [:show, :index, :edit, :update] do
     resource :relationships, only: [:create, :destroy]
@@ -17,6 +19,6 @@ Rails.application.routes.draw do
     resource :favorites, only: [:create, :destroy]
   end
   
-  resources :messages, only: [:create, :show]
+  resources :chats, only: [:create, :show]
 
 end
